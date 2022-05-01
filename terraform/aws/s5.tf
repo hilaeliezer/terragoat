@@ -1,4 +1,15 @@
-resource "aws_s3_bucket" "data123456" {
+}
+
+
+resource "aws_s3_bucket" "data123456_log_bucket" {
+  bucket = "data123456-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "data123456" {
+  bucket = aws_s3_bucket.data123456.id
+
+  target_bucket = aws_s3_bucket.data123456_log_bucket.id
+}
 }
 
 
