@@ -18,13 +18,8 @@ resource "aws_s3_bucket" "data123456" {
 }
 
 
-resource "aws_s3_bucket" "data123456_log_bucket" {
-  bucket = "data123456-log-bucket"
-}
-
-
-resource "aws_s3_bucket_server_side_encryption_configuration" "data123456_log_bucket" {
-  bucket = aws_s3_bucket.data123456_log_bucket.bucket
+resource "aws_s3_bucket_server_side_encryption_configuration" "data123456" {
+  bucket = aws_s3_bucket.data123456.bucket
 
   rule {
     apply_server_side_encryption_by_default {
@@ -33,6 +28,11 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "data123456_log_bu
   }
 }
 
+
+
+resource "aws_s3_bucket" "data123456_log_bucket" {
+  bucket = "data123456-log-bucket"
+}
 
 resource "aws_s3_bucket_logging" "data123456" {
   bucket = aws_s3_bucket.data123456.id
