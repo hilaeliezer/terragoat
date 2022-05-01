@@ -28,3 +28,16 @@ resource "aws_s3_bucket_logging" "data123456" {
   target_bucket = aws_s3_bucket.data123456_log_bucket.id
   target_prefix = "log/"
 }
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "West Europe"
+}
+
+resource "azurerm_storage_sync" "test" {
+  name                = "example-storage-sync"
+  resource_group_name = azurerm_resource_group.test.name
+  location            = azurerm_resource_group.test.location
+  tags = {
+    foo = "bar"
+  }
+}
