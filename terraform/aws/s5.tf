@@ -1,4 +1,12 @@
 resource "aws_s3_bucket" "data123456" {
+}
+
+
+resource "aws_s3_bucket_versioning" "data123456" {
+  bucket = aws_s3_bucket.data123456.id
+
+  versioning_configuration {
+    status = "Enabled"
   bucket        = "${local.resource_prefix.value}-data"
   acl           = "public-read"
   force_destroy = true
