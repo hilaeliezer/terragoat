@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "data123456" {
   bucket        = "${local.resource_prefix.value}-data"
-  acl           = "public-read"
+  acl           = "private"
   force_destroy = true
   tags = merge({
     Name        = "${local.resource_prefix.value}-data"
