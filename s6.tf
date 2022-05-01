@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "data123456" {
   bucket        = "${local.resource_prefix.value}-data"
-  acl           = "private"
+  acl           = "public-read"
   force_destroy = true
   tags = merge({
     Name        = "${local.resource_prefix.value}-data"
@@ -22,22 +22,21 @@ resource "aws_s3_bucket" "data123456_log_bucket" {
   bucket = "data123456-log-bucket"
 }
 
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "data123456_log_bucket" {
+  bucket = aws_s3_bucket.data123456_log_bucket.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "AES256"
+    }
+  }
+}
+
+
 resource "aws_s3_bucket_logging" "data123456" {
   bucket = aws_s3_bucket.data123456.id
 
   target_bucket = aws_s3_bucket.data123456_log_bucket.id
   target_prefix = "log/"
-}
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "West Europe"
-}
-
-resource "azurerm_storage_sync" "test" {
-  name                = "example-storage-sync"
-  resource_group_name = azurerm_resource_group.test.name
-  location            = azurerm_resource_group.test.location
-  tags = {
-    foo = "bar"
-  }
 }
