@@ -18,3 +18,13 @@ resource "aws_s3_bucket" "data1234567" {
 }
 
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "data1234567" {
+  bucket = aws_s3_bucket.data1234567.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
