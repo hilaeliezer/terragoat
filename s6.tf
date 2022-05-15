@@ -34,6 +34,16 @@ resource "aws_s3_bucket" "data123456_log_bucket" {
   bucket = "data123456-log-bucket"
 }
 
+
+resource "aws_s3_bucket_versioning" "data123456_log_bucket" {
+  bucket = aws_s3_bucket.data123456_log_bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+}
+
 resource "aws_s3_bucket_logging" "data123456" {
   bucket = aws_s3_bucket.data123456.id
 
