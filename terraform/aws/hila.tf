@@ -18,6 +18,19 @@ resource "aws_s3_bucket" "data1234567" {
 }
 
 
+resource "aws_s3_bucket" "data1234567_log_bucket" {
+  bucket = "data1234567-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "data1234567" {
+  bucket = aws_s3_bucket.data1234567.id
+
+  target_bucket = aws_s3_bucket.data1234567_log_bucket.id
+  target_prefix = "log/"
+}
+
+
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "data1234567" {
   bucket = aws_s3_bucket.data1234567.bucket
 
@@ -27,4 +40,3 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "data1234567" {
     }
   }
 }
-
